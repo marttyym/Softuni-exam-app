@@ -24,17 +24,14 @@ export class CoinOfTheDayService {
 
   fetchCoinOfTheDay(){
     return this.httpClient
-    .get<{config: any, data: {name: string; symbol: string}, usage: any}>(
+    .get<{name: string; symbol: string}>(
       'https://lunarcrush.com/api3/coinoftheday', {
         headers: {
           'Authorization': 'Bearer my53ccara8a4777extx7l78h9jlbexdrefh1hd619'
       }
       }
       ).pipe(
-      tap((response) => {
-        console.log(response)
-        this.coin = response.data;
-      })
+      tap((response) => this.coin = response)
       )
   }
 }
