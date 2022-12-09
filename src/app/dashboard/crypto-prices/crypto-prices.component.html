@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            Cryptocurrencies
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let crypto of marketData" 
+            [class.bg-danger]="crypto.pc < 0"
+            [class.bg-success]="crypto.pc >= 0"
+            [routerLink]="['crypto', crypto.s]"
+            >
+                <h3 matListItemTitle class="text-white">{{crypto.s}}{{crypto.n}}</h3>
+                <p matListItemLine class="text-white">{{crypto.mc | currency}}</p>
+                <p matListItemMeta class="text-white">{{crypto.p | currency}}</p>
+                <mat-divider [inset]="true"></mat-divider>
+            </mat-list-item>
+        
+        </mat-nav-list>
+    </mat-card-content>
+</mat-card>
+
+
+
