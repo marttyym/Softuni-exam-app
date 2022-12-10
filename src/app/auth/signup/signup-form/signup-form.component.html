@@ -28,6 +28,7 @@
       <input
         matInput
         type="password"
+        minlength="6"
         autocomplete="new-password"
         formControlName="password"
       />
@@ -36,14 +37,14 @@
           signupForm.get('password')?.hasError('minlength') &&
           !signupForm.get('password')?.hasError('required')
         "
-        >Password should be at least 5 characters long</mat-error
+        >Password should be at least 6 characters long</mat-error
       >
       <mat-error *ngIf="
       signupForm.get('password')?.hasError('required')">Password is <strong>required</strong></mat-error>
     </mat-form-field>
     <mat-form-field class="w-75 mt-2" appearance="outline">
       <mat-label>Confirm Password</mat-label>
-      <input matInput type="text" formControlName="confirmPassword" />
+      <input matInput type="password" formControlName="confirmPassword" />
       <mat-error>Feld is <strong>required</strong></mat-error>
     </mat-form-field>
     <br />

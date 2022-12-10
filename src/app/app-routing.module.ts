@@ -6,12 +6,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
 {
   path: '',
+  title: 'Crypto app exam',
   component: DashboardComponent
 },
 { path: 'crypto/:id', 
   loadChildren: () => import('./crypto-details/crypto-details.module').then(m => m.CryptoDetailsModule) },
-{ path: 'auth/signup', loadChildren: () => import('./auth/signup/signup.module').then(m => m.SignupModule) },
-{ path: 'auth/login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) },
+{ path: 'auth/signup', title: 'Sign up', loadChildren: () => import('./auth/signup/signup.module').then(m => m.SignupModule) },
+{ path: 'auth/login', title: 'Login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) },
 {
   path: '**',
   component: PageNotFoundComponent
