@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit{
       .subscribe({
         next: (response) => {
           console.log(response);
-          this.MatSnackBar.open("Login Successful", "Ok"), {
+          sessionStorage.setItem('user', JSON.stringify(response))
+          this.MatSnackBar.open(`Hello ${loginForm.value.email}`, "Ok"), {
             verticalPosition: "bottom",
             horizontalPosition: "center",
           }

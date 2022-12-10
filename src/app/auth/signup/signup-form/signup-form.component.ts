@@ -34,6 +34,7 @@ export class SignupFormComponent implements OnInit {
     //console.log(this.signupForm.value);
 
     this.httpClient
+
       .post(
         `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${enviroment.firebaseApiKey}`,
         { ...this.signupForm.value, returnSecureToken: true }
@@ -41,9 +42,8 @@ export class SignupFormComponent implements OnInit {
       .subscribe({
         next: (response) => {
           console.log(response);
-          console.log('dvsknlk');
           this.signupForm.reset();
-          this.MatSnackBar.open('Account created', 'Ok'),
+          this.MatSnackBar.open(`Account created`, 'Ok'),
             {
               verticalPosition: 'bottom',
               horizontalPosition: 'center',
