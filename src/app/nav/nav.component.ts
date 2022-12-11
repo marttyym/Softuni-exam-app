@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -25,17 +26,17 @@ export class NavComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private MatSnackBar: MatSnackBar,
     private angularFireAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
   ) {}
 
   onLogout() {
     this.angularFireAuth.signOut();
-    this.router.navigate(['auth', 'login'])
+    localStorage.removeItem('user');
+    this.router.navigate(['/'])
   }
 
   ngOnInit(): void {
     this.angularFireAuth.authState.subscribe((user) => {
-      console.log(user)
       this.isLoggedIn = !!user;
     });
   }

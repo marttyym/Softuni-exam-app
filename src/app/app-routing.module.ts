@@ -1,26 +1,23 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
+//import { NavComponent } from './nav/nav.component';
+import { SignupFormComponent } from './auth/signup/signup-form/signup-form.component';
+//import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
-{
-  path: '',
-  title: 'Crypto app exam',
-  component: DashboardComponent
-},
-{ path: 'crypto/:id', 
-  loadChildren: () => import('./crypto-details/crypto-details.module').then(m => m.CryptoDetailsModule) },
-{ path: 'auth/signup', title: 'Sign up', loadChildren: () => import('./auth/signup/signup.module').then(m => m.SignupModule) },
-{ path: 'auth/login', title: 'Login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule) },
-{
-  path: '**',
-  component: PageNotFoundComponent
-},
-]
-
+  { path: '', component: DashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupFormComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'verify-email-address', component: VerifyEmailComponent },
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

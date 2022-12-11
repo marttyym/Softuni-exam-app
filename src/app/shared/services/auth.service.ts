@@ -54,16 +54,20 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        //this.SendVerificationMail();
+        this.SendVerificationMail();
         this.SetUserData(result.user);
-        this.router.navigate(['/'])
+        this.afAuth.authState.subscribe((user) => {
+          if (user) {
+            this.router.navigate(['/']);
+          }
+        });
       })
       .catch((error) => {
         window.alert(error.message);
       });
   }
   // Send email verfificaiton when new user sign up
-  /*SendVerificationMail() {
+  SendVerificationMail() {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
@@ -80,7 +84,7 @@ export class AuthService {
       .catch((error) => {
         window.alert(error);
       });
-  }*/
+  }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
@@ -89,7 +93,7 @@ export class AuthService {
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/']);
     });
   }
   // Auth logic to run auth providers
@@ -97,7 +101,7 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/']);
         this.SetUserData(result.user);
       })
       .catch((error) => {
@@ -126,7 +130,7 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['login']);
     });
   }
 }
