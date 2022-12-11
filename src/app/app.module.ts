@@ -18,6 +18,17 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { FirebaseAuthModule } from './shared/firebase-auth/firebase-auth.module';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { enviroment } from 'src/enviroments/enviroment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AuthService } from './shared/services/auth.service';
+
+
 
 @NgModule({
   declarations: [
@@ -41,8 +52,14 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     AppRoutingModule,
     MatCardModule,
     MatSnackBarModule,
+    FirebaseAuthModule,
+    AngularFireModule.initializeApp(enviroment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFirestoreModule,
+   AngularFireDatabaseModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{provide: FIREBASE_OPTIONS, useValue: enviroment.firebaseConfig}],
+  bootstrap: [AppComponent, AuthService]
 })
 export class AppModule { }

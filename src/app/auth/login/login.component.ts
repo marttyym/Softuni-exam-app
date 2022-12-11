@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { enviroment } from 'src/enviroments/enviroment';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +17,13 @@ export class LoginComponent implements OnInit{
   constructor(
     private httpClient: HttpClient, 
     private router: Router, 
-    private MatSnackBar: MatSnackBar){}
+    private MatSnackBar: MatSnackBar,
+    public afAuth: AngularFireAuth,
+    public authService: AuthService){}
 
   ngOnInit(): void {}
 
+  /*
   onLogin(loginForm: NgForm){
     const url = "https://softuni-exam-56cc1-default-rtdb.europe-west1.firebasedatabase.app/users.json"
 
@@ -45,5 +50,6 @@ export class LoginComponent implements OnInit{
           }
         },
       });
-  }
+  }*/
+
 }

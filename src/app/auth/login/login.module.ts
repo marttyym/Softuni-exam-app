@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { FirebaseAuthModule } from 'src/app/shared/firebase-auth/firebase-auth.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatButtonModule,
     MatFormFieldModule,
     LoginRoutingModule, 
+    FirebaseAuthModule,
   ]
 })
 export class LoginModule { }
