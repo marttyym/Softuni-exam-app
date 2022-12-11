@@ -8,6 +8,8 @@
       <a mat-list-item *ngIf="!isLoggedIn" routerLink="login">Log in</a>
       <a mat-list-item *ngIf="!isLoggedIn" routerLink="signup">Register</a>
       <a mat-list-item *ngIf="isLoggedIn" (click)="onLogout()">Logout</a>
+      <a mat-list-item *ngIf="isLoggedIn" routerLink="/add-book">Add book</a>
+      <a mat-list-item routerLink="/books-list">View books</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -28,3 +30,6 @@
 
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
+

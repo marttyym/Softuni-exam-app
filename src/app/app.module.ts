@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
@@ -29,7 +28,14 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AuthService } from './shared/services/auth.service';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
-
+import { AddBookComponent } from './components/add-book/add-book.component';
+import { EditBookComponent } from './components/edit-book/edit-book.component';
+import { BookListComponent } from './components/book-list/book-list.component';
+//import { MaterialModule } from './material/material.module';
+import { AngularMaterialModule } from './material/material.module';
+import { BookService } from './shared/book.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
@@ -42,6 +48,9 @@ import { VerifyEmailComponent } from './auth/verify-email/verify-email.component
     PageNotFoundComponent,
     ForgotPasswordComponent,
     VerifyEmailComponent,
+    AddBookComponent,
+    EditBookComponent,
+    BookListComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,9 +70,15 @@ import { VerifyEmailComponent } from './auth/verify-email/verify-email.component
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
+    AngularMaterialModule,
    AngularFireDatabaseModule,
+   FormsModule,
+   ReactiveFormsModule,
+   MatChipsModule,
+   //MaterialModule,
   ],
-  providers: [{provide: FIREBASE_OPTIONS, useValue: enviroment.firebaseConfig}],
-  bootstrap: [AppComponent, AuthService]
+  providers: [{provide: FIREBASE_OPTIONS, useValue: enviroment.firebaseConfig}, BookService],
+  bootstrap: [AppComponent, AuthService],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

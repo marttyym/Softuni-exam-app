@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
@@ -8,7 +8,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy{
-  title = 'crypto-app';
+  title = 'Crypto Resources';
 
   constructor(private angularFireAuth: AngularFireAuth){}
 
