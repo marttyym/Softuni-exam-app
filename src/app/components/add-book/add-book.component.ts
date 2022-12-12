@@ -14,7 +14,7 @@ export interface Language{
   styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent implements OnInit{
-
+  
   visible = true;
   selectable= true;
   removable = true;
@@ -36,9 +36,11 @@ export class AddBookComponent implements OnInit{
   ngOnInit(): void {
     this.bookApi.GetBookList();
     this.submitBookForm();
+    this.auth.loggedInUserId();
   }
 
-  constructor(public fb: FormBuilder, private bookApi: BookService, private auth: AuthService){}
+  constructor(public fb: FormBuilder, private bookApi: BookService, private auth: AuthService){
+  }
   /* Remove dynamic languages */
   remove(language: Language): void {
     const index = this.languageArray.indexOf(language);

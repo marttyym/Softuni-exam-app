@@ -1,15 +1,19 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Book } from 'src/app/shared/book';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BookService } from 'src/app/shared/book.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireAction } from '@angular/fire/compat/database';
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
-export class BookListComponent {
+export class BookListComponent{
+
+  bookRef: AngularFireAction<any>;
 
   dataSource: MatTableDataSource<Book>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -23,7 +27,10 @@ export class BookListComponent {
     'action',
   ];
 
-  constructor(private bookApi: BookService) {
+  constructor(private bookApi: BookService, private afAuth: AngularFireAuth) {
+
+    this.loggedInUserId()
+  
     this.bookApi
       .GetBookList()
       .snapshotChanges()
@@ -40,6 +47,19 @@ export class BookListComponent {
           this.dataSource.paginator = this.paginator;
         }, 0);
       });
+  }
+
+  public userId = ''
+
+  loggedInUserId(): any {
+    this.afAuth.authState.subscribe(res => {
+      if(res && res.uid){
+        this.userId = res.uid
+        console.log(this.userId)
+      }else{
+        console.log('no user')
+      }
+    })
   }
 
   /* Delete */

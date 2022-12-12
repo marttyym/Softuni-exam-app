@@ -36,6 +36,7 @@
           <td mat-cell *matCellDef="let element; let i = index">
             <button
               mat-raised-button
+              *ngIf="element.userId == userId"
               color="primary"
               class="push-right"
               [routerLink]="['/edit-book/', element.$key]"
@@ -43,6 +44,7 @@
               Edit
             </button>
             <button
+            *ngIf="element.userId == userId"
               mat-raised-button
               color="accent"
               (click)="deleteBook(i, element)"

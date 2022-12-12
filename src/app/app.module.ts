@@ -36,6 +36,10 @@ import { AngularMaterialModule } from './material/material.module';
 import { BookService } from './shared/book.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
+import { LoginComponent } from './auth/login/login.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
 
 
 @NgModule({
@@ -51,6 +55,7 @@ import { MatChipsModule } from '@angular/material/chips';
     AddBookComponent,
     EditBookComponent,
     BookListComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +80,8 @@ import { MatChipsModule } from '@angular/material/chips';
    FormsModule,
    ReactiveFormsModule,
    MatChipsModule,
+   MatFormFieldModule,
+   MatInputModule
    //MaterialModule,
   ],
   providers: [{provide: FIREBASE_OPTIONS, useValue: enviroment.firebaseConfig}, BookService],

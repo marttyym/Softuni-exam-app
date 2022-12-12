@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, OnInit } from '@angular/core';
 import { User } from '../services/user';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -7,10 +7,11 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase/compat';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService{
   userData: any; // Save logged in user data
   constructor(
     public afs: AngularFirestore, // Inject Firestore service
@@ -87,7 +88,18 @@ export class AuthService {
   }
   // Returns true when user is looged in and email is verified
   get isLoggedIn(): boolean {
-    return this.authState !== null
+    const user = JSON.parse(localStorage.getItem('user')!);
+    return user !== null && user.emailVerified !== false ? true : false;
+  }
+
+  loggedInUserId(): any {
+    this.afAuth.authState.subscribe(res => {
+      if(res && res.uid){
+        return res.uid
+      }else{
+        console.log('no user')
+      }
+    })
   }
   // Sign in with Google
   GoogleAuth() {
@@ -133,9 +145,4 @@ export class AuthService {
     });
   }
 
-  authState: any = null;
-
-  get currentUserId(): string{
-    return this.isLoggedIn ? this.authState.uid : null
-  }
 }

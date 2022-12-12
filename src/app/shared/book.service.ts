@@ -1,24 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Book } from './book';
 import { AngularFireDatabase, AngularFireList, AngularFireObject, } from '@angular/fire/compat/database';
 import { AuthService } from './services/auth.service';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
+export class BookService{
 
   booksRef: AngularFireList<any>;
   bookRef: AngularFireObject<any>;
 
-  constructor(private db: AngularFireDatabase, private auth: AuthService) { }
+  constructor(private db: AngularFireDatabase, private auth: AuthService, private afAuth: AngularFireAuth) { 
+  }
 
-  
+  public userId = ''
+
+  loggedInUserId(): any {
+    this.afAuth.authState.subscribe(res => {
+      if(res && res.uid){
+        this.userId = res.uid
+        console.log(this.userId)
+      }else{
+        console.log('no user')
+      }
+    })
+  }
 
   /* Create book */
   AddBook(book: Book) {
-    this.booksRef
+    this.loggedInUserId() 
+    setTimeout(() => {
+      this.booksRef
       .push({
+        userId: this.userId,
         book_name: book.book_name,
         isbn_10: book.isbn_10,
         author_name: book.author_name,
@@ -30,7 +46,9 @@ export class BookService {
       .catch((error) => {
         this.errorMgmt(error);
       });
-      console.log()
+      console.log('push')
+    }, 1000)
+  
   }
 
   /* Get book */
@@ -42,6 +60,7 @@ export class BookService {
   /* Get book list */
   GetBookList() {
     this.booksRef = this.db.list('books-list');
+    console.log(this.bookRef)
     return this.booksRef;
   }
 
