@@ -15,13 +15,11 @@ export class BookService{
   constructor(private db: AngularFireDatabase, private auth: AuthService, private afAuth: AngularFireAuth) { 
   }
 
-  public userId = ''
-
-  loggedInUserId(): any {
+  loggedInUserId(callback: (userId: string) => void): any {
     this.afAuth.authState.subscribe(res => {
       if(res && res.uid){
-        this.userId = res.uid
-        console.log(this.userId)
+        console.log(res.uid)
+        callback(res.uid)
       }else{
         console.log('no user')
       }
@@ -30,11 +28,9 @@ export class BookService{
 
   /* Create book */
   AddBook(book: Book) {
-    this.loggedInUserId() 
-    setTimeout(() => {
-      this.booksRef
+    this.loggedInUserId((userId) => {this.booksRef
       .push({
-        userId: this.userId,
+        userId: userId,
         book_name: book.book_name,
         isbn_10: book.isbn_10,
         author_name: book.author_name,
@@ -46,8 +42,8 @@ export class BookService{
       .catch((error) => {
         this.errorMgmt(error);
       });
-      console.log('push')
-    }, 1000)
+      console.log('push')}) 
+    
   
   }
 
